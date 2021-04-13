@@ -1,0 +1,4 @@
+# @package _group_
+input_data_path: ${main.input_data_path}
+report_dir: ${main.eda_dir}
+report_file_name: "eda_pandas_profiling.html"

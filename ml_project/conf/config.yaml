@@ -1,0 +1,3 @@
+defaults:
+  - main: main_config
+  - eda: pd_profiling

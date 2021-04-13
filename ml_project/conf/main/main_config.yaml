@@ -1,0 +1,3 @@
+# @package _group_
+input_data_path: "data/raw/archive.zip"
+eda_dir: "reports/eda"
