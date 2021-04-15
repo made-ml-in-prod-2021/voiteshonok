@@ -2,6 +2,6 @@ import hydra
 import os
 
 
-def get_path_from_root(path):
+def get_path_from_root(path: str) -> str:
     root = hydra.utils.get_original_cwd()
     return os.path.join(root, path)
