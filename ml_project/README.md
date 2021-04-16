@@ -14,7 +14,8 @@ Installation (for Linux):
     pip install -r requirements.txt
 
 ### Configuration and logging
-The project is configured with [Hydra](https://hydra.cc/). You can find configs in *conf* directory.  
+The project is configured with [Hydra](https://hydra.cc/). You can find configs in *conf* directory.
+All Hydra configs should be described as dataclasses in *src/config*.  
 Logs are configured in *conf/logging.conf* file. Logs are stored in *logs* directory.
 
 ### Useful commands
