@@ -1,6 +1,8 @@
 import pytest
 import os
 
+from tests.utils import create_fake_dataset
+
 
 @pytest.fixture()
 def src_path():
@@ -14,8 +16,10 @@ def tests_path():
 
 @pytest.fixture()
 def dataset_path():
-    curdir = os.path.dirname(__file__)
-    return os.path.join(curdir, "data_sample.zip")
+    path = os.path.join(os.path.dirname(__file__), "data_sample.zip")
+    data = create_fake_dataset()
+    data.to_csv(path, compression="zip")
+    return path
 
 
 @pytest.fixture()

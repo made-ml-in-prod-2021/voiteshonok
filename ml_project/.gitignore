@@ -133,6 +133,7 @@ dmypy.json
 
 # Dataset
 /data
+tests/data_sample.zip
 
 # Hydra outputs
 outputs
