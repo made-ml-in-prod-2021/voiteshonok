@@ -23,6 +23,18 @@ We use [pytest](https://docs.pytest.org/) as a framework for testing. You can ru
 
     pytest tests
 
+### Code formatting
+Code in this repository is automatically formatted with [Black](https://github.com/psf/black). 
+Moreover, compliance with Black formatting rules is tested in *tests* module.  
+
+Check for Black formatting proposals:
+
+    black --diff path_to_code
+
+Format code automatically:
+
+    black path_to_code
+
 ### Useful commands
 
 EDA report generation:
