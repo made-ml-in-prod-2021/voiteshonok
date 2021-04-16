@@ -137,5 +137,9 @@ dmypy.json
 # Hydra outputs
 outputs
 
+# Logs
+logs/*
+!logs/.gitkeep
+
 # Reports
 reports
