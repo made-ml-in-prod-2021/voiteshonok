@@ -13,9 +13,11 @@ Installation (for Linux):
     source .venv/bin/activate
     pip install -r requirements.txt
 
-### Useful commands
+### Configuration and logging
+The project is configured with [Hydra](https://hydra.cc/). You can find configs in *conf* directory.  
+Logs are configured in *conf/logging.conf* file. Logs are stored in *logs* directory.
 
-All commands are configured with [Hydra](https://hydra.cc/). You can find configs in *conf* directory.
+### Useful commands
 
 EDA report generation:
 
