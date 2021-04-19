@@ -38,3 +38,8 @@ def target_col() -> str:
 @pytest.fixture()
 def split_config() -> SimpleSplitConfig:
     return SimpleSplitConfig(test_size=0.2, random_state=42)
+
+
+@pytest.fixture()
+def target_name() -> str:
+    return "target"
