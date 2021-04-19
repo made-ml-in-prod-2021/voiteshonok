@@ -1,3 +1,4 @@
 defaults:
   - main: main_config
   - eda: pd_profiling
+  - split: simple_split
