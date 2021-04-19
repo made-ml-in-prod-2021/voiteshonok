@@ -1,5 +1,5 @@
-import hydra
 import os
+import hydra
 
 
 def get_path_from_root(path: str) -> str:
