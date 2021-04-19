@@ -1,8 +1,10 @@
 import pytest
 import os
+import pandas as pd
 
 from tests.utils import create_fake_dataset
 from src.config import SimpleSplitConfig
+from src.data import read_data
 
 
 @pytest.fixture()
@@ -21,6 +23,11 @@ def dataset_path() -> str:
     data = create_fake_dataset()
     data.to_csv(path, compression="zip")
     return path
+
+
+@pytest.fixture()
+def dataset(dataset_path) -> pd.DataFrame:
+    return read_data(dataset_path)
 
 
 @pytest.fixture()
