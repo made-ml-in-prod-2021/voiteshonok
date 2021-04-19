@@ -6,3 +6,4 @@ from omegaconf import MISSING
 class MainConfig:
     input_data_path: str = MISSING
     eda_dir: str = MISSING
+    random_seed: int = MISSING

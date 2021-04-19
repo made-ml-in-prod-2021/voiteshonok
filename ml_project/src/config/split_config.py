@@ -4,7 +4,7 @@ from omegaconf import MISSING
 
 @dataclass
 class SplitConfig:
-    pass
+    name: str = MISSING
 
 
 @dataclass
