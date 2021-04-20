@@ -12,3 +12,9 @@ class LogisticRegressionConfig(ModelConfig):
     random_state: int = MISSING
     C: float = MISSING
     max_iter: int = MISSING
+
+
+@dataclass
+class RandomForestConfig(ModelConfig):
+    random_state: int = MISSING
+    n_estimators: int = MISSING

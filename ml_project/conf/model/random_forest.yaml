@@ -1,0 +1,4 @@
+# @package _group_
+_target_: sklearn.ensemble.RandomForestClassifier
+n_estimators: 100
+random_state: ${main.random_seed}
