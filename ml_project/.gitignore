@@ -144,3 +144,6 @@ logs/*
 
 # Reports
 reports
+
+# Saved models
+models

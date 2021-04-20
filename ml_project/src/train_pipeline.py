@@ -6,7 +6,7 @@ import yaml
 import os
 
 from omegaconf import OmegaConf
-from src.config import Config, SimpleSplitConfig
+from src.config import Config, SimpleSplitConfig, SaveModelConfig
 from src.data import read_data, split_train_val_data
 from src.features import separate_target, HeartDatasetTransformer
 from src.utils import get_path_from_root
@@ -20,7 +20,7 @@ logging.config.fileConfig("conf/logging.conf")
 logger = logging.getLogger("mlProject.train_pipeline")
 
 
-def track_experiment(classifier: Any, cfg: Config, metrics: dict) -> None:
+def track_experiment(model: Any, cfg: Config, metrics: dict) -> None:
     saving_path = get_path_from_root(
         os.path.join(
             cfg.main.track.experiment_data_dir,
@@ -40,7 +40,16 @@ def track_experiment(classifier: Any, cfg: Config, metrics: dict) -> None:
         with open(
             os.path.join(saving_path, cfg.main.track.model_weights_file_name), "wb"
         ) as weights_file:
-            pickle.dump(classifier, weights_file)
+            pickle.dump(model, weights_file)
+
+
+def save_model(model: Any, cfg: SaveModelConfig):
+    saving_path = get_path_from_root(cfg.model_dir)
+    Path(saving_path).mkdir(parents=True, exist_ok=True)
+    with open(
+        os.path.join(saving_path, cfg.model_weights_file_name), "wb"
+    ) as weights_file:
+        pickle.dump(model, weights_file)
 
 
 @hydra.main(config_path="../conf", config_name="config")
@@ -90,6 +99,11 @@ def main(cfg: Config):
         logger.info("Start saving experiment info")
         track_experiment(classifier, cfg, metrics)
         logger.info("Finished saving experiment info")
+
+    if cfg.main.save_model.overwrite_main_model:
+        logger.info("Start saving model")
+        save_model(classifier, cfg.main.save_model)
+        logger.info("Finished saving model")
 
     logger.info("Finished train pipeline")
 

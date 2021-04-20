@@ -14,9 +14,17 @@ class TrackConfig:
 
 
 @dataclass
+class SaveModelConfig:
+    overwrite_main_model: bool = MISSING
+    model_dir: str = MISSING
+    model_weights_file_name: str = MISSING
+
+
+@dataclass
 class MainConfig:
     input_data_path: str = MISSING
     eda_dir: str = MISSING
     random_seed: int = MISSING
     target_name: str = MISSING
     track: TrackConfig = MISSING
+    save_model: SaveModelConfig = MISSING

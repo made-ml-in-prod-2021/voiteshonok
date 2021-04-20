@@ -11,3 +11,7 @@ track:
   config_file_name: "config.yaml"
   model_weights_file_name: "model.pickle"
   experiment_dir_name_format: "%d_%m_%Y_%H_%M_%S"
+save_model:
+  overwrite_main_model: True
+  model_dir: "models"
+  model_weights_file_name: "model.pickle"
