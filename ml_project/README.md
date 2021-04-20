@@ -13,6 +13,9 @@ Installation (for Linux):
     source .venv/bin/activate
     pip install -r requirements.txt
 
+### Data
+Dataset is [Heart Disease UCI](https://www.kaggle.com/ronitf/heart-disease-uci). Download zip archive and put it to data/raw.
+
 ### Configuration and logging
 The project is configured with [Hydra](https://hydra.cc/). You can find configs in *conf* directory.
 All Hydra configs should be described as dataclasses in *src/config*.  
@@ -22,6 +25,7 @@ Logs are configured in *conf/logging.conf* file. Logs are stored in *logs* direc
 We use [pytest](https://docs.pytest.org/) as a framework for testing. You can run tests with the following command:
 
     pytest tests
+
 
 ### Code formatting
 Code in this repository is automatically formatted with [Black](https://github.com/psf/black). 
