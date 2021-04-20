@@ -3,7 +3,7 @@ import os
 import pandas as pd
 
 from tests.utils import create_fake_dataset
-from src.config import SimpleSplitConfig
+from src.config import SimpleSplitConfig, TransformerConfig
 from src.data import read_data
 
 
@@ -43,3 +43,8 @@ def split_config() -> SimpleSplitConfig:
 @pytest.fixture()
 def target_name() -> str:
     return "target"
+
+
+@pytest.fixture()
+def transformer_config() -> TransformerConfig:
+    return TransformerConfig(use_scaler=True)

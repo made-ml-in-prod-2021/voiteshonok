@@ -2,3 +2,4 @@
 random_seed: 42
 input_data_path: "data/raw/archive.zip"
 eda_dir: "reports/eda"
+target_name: "target"
