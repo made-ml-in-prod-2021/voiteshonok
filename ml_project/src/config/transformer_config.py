@@ -10,3 +10,8 @@ class TransformerConfig:
 @dataclass
 class RegressionTransformerConfig(TransformerConfig):
     pass
+
+
+@dataclass
+class NoStandardizationTransformerConfig(TransformerConfig):
+    pass
