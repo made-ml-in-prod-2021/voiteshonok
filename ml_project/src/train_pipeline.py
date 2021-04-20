@@ -27,7 +27,7 @@ def track_experiment(model: Any, cfg: Config, metrics: dict) -> None:
             datetime.now().strftime(cfg.main.track.experiment_dir_name_format),
         )
     )
-    Path(saving_path).mkdir(parents=True)
+    Path(saving_path).mkdir(parents=True, exist_ok=True)
     with open(
         os.path.join(saving_path, cfg.main.track.metrics_file_name), "w"
     ) as metrics_file:
@@ -52,8 +52,7 @@ def save_model(model: Any, cfg: SaveModelConfig):
         pickle.dump(model, weights_file)
 
 
-@hydra.main(config_path="../conf", config_name="config")
-def main(cfg: Config):
+def train_pipeline(cfg: Config) -> None:
     logger.info("Started train pipeline")
     logger.debug(f"App config: \n{OmegaConf.to_yaml(cfg)}")
     data = read_data(get_path_from_root(cfg.main.input_data_path))
@@ -106,6 +105,11 @@ def main(cfg: Config):
         logger.info("Finished saving model")
 
     logger.info("Finished train pipeline")
+
+
+@hydra.main(config_path="../conf", config_name="config")
+def main(cfg: Config):
+    train_pipeline(cfg)
 
 
 if __name__ == "__main__":

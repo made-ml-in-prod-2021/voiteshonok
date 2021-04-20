@@ -147,3 +147,4 @@ reports
 
 # Saved models
 models
+tests/model_test_dir
