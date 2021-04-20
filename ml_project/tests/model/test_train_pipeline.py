@@ -1,7 +1,7 @@
 import os
 import yaml
 
-from src.train_pipeline import train_pipeline
+from src.model.train_pipeline import train_pipeline
 from src.config import Config
 
 

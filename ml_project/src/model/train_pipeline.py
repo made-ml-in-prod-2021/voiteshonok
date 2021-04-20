@@ -109,7 +109,7 @@ def train_pipeline(cfg: Config) -> None:
     logger.info("Finished train pipeline")
 
 
-@hydra.main(config_path="../conf", config_name="config")
+@hydra.main(config_path="../../conf", config_name="config")
 def main(cfg: Config):
     train_pipeline(cfg)
 

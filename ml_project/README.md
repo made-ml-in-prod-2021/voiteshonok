@@ -47,7 +47,7 @@ EDA report generation:
 
 Run training pipeline:
 
-    python -m src.train_pipeline
+    python -m src.model.train_pipeline
 
 Get predictions:
     

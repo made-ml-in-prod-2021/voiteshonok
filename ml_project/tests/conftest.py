@@ -7,7 +7,7 @@ from tests.utils import create_fake_dataset
 from src.config import SimpleSplitConfig, TransformerConfig, Config
 from hydra.experimental import compose, initialize
 from src.data import read_data
-from src.train_pipeline import train_pipeline
+from src.model.train_pipeline import train_pipeline
 from typing import cast
 
 
