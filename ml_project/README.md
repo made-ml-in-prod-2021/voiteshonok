@@ -54,3 +54,49 @@ Get predictions:
     python -m src.model.predict --data_path *path_to_data* 
                                 --model_path *path_to_model* 
                                 --output_path *path_to_save_predictions*
+
+### Project structure
+Some of the directories listed are in .gitignore, so you don't find them in the repository.  
+They either should be created (e.g. data folder) or will be generated when you run the commands.
+
+
+    ├── README.md          <- The top-level README for developers using this project.
+    │
+    ├── conf               <- Configuration files.
+    │
+    ├── data
+    │   ├── preds          <- Predictions from the model.
+    │   └── raw            <- The original, immutable data dump.
+    │
+    ├── logs               <- Logs go here.
+    │
+    ├── models             <- Trained and serialized models.
+    │
+    ├── notebooks          <- Jupyter notebooks. Naming convention is a number (for ordering),
+    │                         the creator's initials, and a short `-` delimited description, e.g.
+    │                         `1.0-jqp-initial-data-exploration`.
+    │
+    ├── outputs            <- Outputs from hydra.
+    │
+    ├── reports            <- Generated analysis as HTML, PDF, LaTeX, etc.
+    │   ├── eda            <- EDA reports
+    │   └── experiments    <- Configs, metrics and model dumps for conducted experiments.
+    │
+    ├── requirements.txt   <- The requirements file for reproducing the analysis environment.
+    │
+    └── src                <- Source code for use in this project.
+    │   ├── __init__.py    <- Makes src a Python module
+    │   │
+    │   ├── config         <- configuration dataclasses for type checking
+    │   │
+    │   ├── data           <- code to download or generate data
+    │   │
+    │   ├── features       <- code to turn raw data into features for modeling
+    │   │
+    │   ├── model          <- code to train models and then use trained models to make predictions
+    │   │
+    │   ├── utils          <- miscellaneous util functions
+    │   │
+    │   └── visualization  <- code for eda generation
+    │
+    └── tests              <- unit tests for project modules
