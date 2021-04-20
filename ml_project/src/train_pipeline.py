@@ -94,14 +94,16 @@ def train_pipeline(cfg: Config) -> None:
     logger.debug(f"Metrics: \n{yaml.dump(metrics)}")
     logger.info("Finished evaluating the classifier")
 
+    model = {"classifier": classifier, "transformer": transformer}
+
     if cfg.main.track.track_experiment:
         logger.info("Start saving experiment info")
-        track_experiment(classifier, cfg, metrics)
+        track_experiment(model, cfg, metrics)
         logger.info("Finished saving experiment info")
 
     if cfg.main.save_model.overwrite_main_model:
         logger.info("Start saving model")
-        save_model(classifier, cfg.main.save_model)
+        save_model(model, cfg.main.save_model)
         logger.info("Finished saving model")
 
     logger.info("Finished train pipeline")

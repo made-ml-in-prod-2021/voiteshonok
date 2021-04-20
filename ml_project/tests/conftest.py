@@ -1,12 +1,13 @@
 import pytest
 import os
 import pandas as pd
-import omegaconf
+import pickle
 
 from tests.utils import create_fake_dataset
 from src.config import SimpleSplitConfig, TransformerConfig, Config
 from hydra.experimental import compose, initialize
 from src.data import read_data
+from src.train_pipeline import train_pipeline
 from typing import cast
 
 
@@ -60,7 +61,10 @@ def model_dir() -> str:
 
 @pytest.fixture()
 def train_config(model_dir, dataset_path) -> Config:
-    initialize(config_path="../conf", job_name="test_app")
+    try:
+        initialize(config_path="../conf", job_name="test_app")
+    except ValueError:
+        pass
     cfg = compose(config_name="config")
     cfg = cast(Config, cfg)
     cfg.main.track.experiment_dir_name_format = "test_experiment"
@@ -70,5 +74,16 @@ def train_config(model_dir, dataset_path) -> Config:
     cfg.main.track.track_experiment = True
     cfg.main.track.save_model_weights = True
     cfg.main.input_data_path = dataset_path
-    print(cfg)
     return cfg
+
+
+@pytest.fixture()
+def model(train_config):
+    train_pipeline(train_config)
+    model_path = os.path.join(
+        train_config.main.save_model.model_dir,
+        train_config.main.save_model.model_weights_file_name,
+    )
+    with open(model_path, "rb") as model_file:
+        model = pickle.load(model_file)
+    return model

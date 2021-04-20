@@ -15,7 +15,7 @@ class HeartDatasetTransformer(BaseEstimator, TransformerMixin):
             self.scaler.fit(data)
         return self
 
-    def transform(self, data: pd.DataFrame, target: pd.Series):
+    def transform(self, data: pd.DataFrame, target: pd.Series = None):
         transformed_data = data.copy()
         transformed_data["oldpeak_zero"] = (transformed_data["oldpeak"] == 0).astype(
             int
