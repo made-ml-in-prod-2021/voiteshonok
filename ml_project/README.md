@@ -40,3 +40,7 @@ Format code automatically:
 EDA report generation:
 
     python -m src.visualization.eda
+
+Run training pipeline:
+
+    python -m src.train_pipeline
