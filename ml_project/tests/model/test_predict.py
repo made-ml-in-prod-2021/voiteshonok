@@ -1,6 +1,6 @@
 import pandas as pd
 
-from src.model import predict
+from src.model.predict import predict
 
 
 def test_predict(model: dict, dataset: pd.DataFrame, target_name: str):
