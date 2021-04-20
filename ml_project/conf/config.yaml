@@ -3,3 +3,4 @@ defaults:
   - eda: pd_profiling
   - split: simple_split
   - transformer: regression_transformer
+  - model: logistic_regression

@@ -4,6 +4,7 @@ from .main_config import MainConfig
 from .eda_config import PandasProfilingConfig
 from .split_config import SimpleSplitConfig
 from .transformer_config import TransformerConfig, RegressionTransformerConfig
+from .model_config import LogisticRegressionConfig
 
 
 __all__ = ["Config", "SimpleSplitConfig", "TransformerConfig"]
@@ -17,3 +18,4 @@ cs.store(group="split", name="simple_split", node=SimpleSplitConfig)
 cs.store(
     group="transformer", name="regression_transformer", node=RegressionTransformerConfig
 )
+cs.store(group="model", name="logistic_regression", node=LogisticRegressionConfig)
