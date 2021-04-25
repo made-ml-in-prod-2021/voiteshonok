@@ -1,6 +1,8 @@
 # ML in Production HW1
 Python version used: 3.7.9
 
+P.S. Run installation and other commands from ml_project directory, not from repository root.
+
 Installation (for Windows):  
 
     python -m venv .venv
