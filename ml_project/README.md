@@ -29,7 +29,7 @@ We use [pytest](https://docs.pytest.org/) as a framework for testing. You can ru
     pytest tests
 
 
-### Code formatting
+### Code formatting and linter
 Code in this repository is automatically formatted with [Black](https://github.com/psf/black). 
 Moreover, compliance with Black formatting rules is tested in *tests* module.  
 
@@ -40,6 +40,10 @@ Check for Black formatting proposals:
 Format code automatically:
 
     black path_to_code
+
+Run flake8 linter:
+
+    flake8 --max-line-length 88 path_to_code
 
 ### Useful commands
 

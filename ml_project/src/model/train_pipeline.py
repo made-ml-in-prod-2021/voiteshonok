@@ -69,7 +69,7 @@ def train_pipeline(cfg: Config) -> None:
     train_features, train_target = separate_target(train_data, cfg.main.target_name)
     val_features, val_target = separate_target(val_data, cfg.main.target_name)
 
-    logger.info(f"Started transforming data")
+    logger.info("Started transforming data")
     transformer = HeartDatasetTransformer(cfg=cfg.transformer).fit(
         train_features, train_target
     )
@@ -82,7 +82,7 @@ def train_pipeline(cfg: Config) -> None:
         f"val_features: {val_features.shape}\n"
         f"val_target: {val_target.shape}"
     )
-    logger.info(f"Finished transforming data")
+    logger.info("Finished transforming data")
 
     logger.info("Started training a classifier")
     classifier = hydra.utils.instantiate(cfg.model).fit(train_features, train_target)
