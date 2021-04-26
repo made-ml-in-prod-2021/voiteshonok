@@ -1,0 +1,42 @@
+name: mlproject test workflow
+
+on:
+  push:
+    paths:
+    - 'ml_project/**'
+    - '.github/workflows/mlproject-test.yml'
+
+jobs:
+  test:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set up Python 3.7
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.7'
+
+    - name: Install dependencies
+      working-directory: ./ml_project
+      run: |
+        python -m pip install --upgrade pip
+        python -m venv .venv
+        source .venv/bin/activate
+        pip install -r requirements.txt
+
+    - name: Lint with flake8
+      working-directory: ./ml_project
+      run: |
+        source .venv/bin/activate
+        flake8 --max-line-length 88 src
+        flake8 --max-line-length 88 tests
+
+
+    - name: Test with pytest
+      working-directory: ./ml_project
+      run: |
+        source .venv/bin/activate
+        pytest tests

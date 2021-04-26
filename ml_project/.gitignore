@@ -130,3 +130,21 @@ dmypy.json
 
 # PyCharm
 .idea
+
+# Dataset
+/data
+tests/data_sample.zip
+
+# Hydra outputs
+outputs
+
+# Logs
+logs/*
+!logs/.gitkeep
+
+# Reports
+reports
+
+# Saved models
+models
+tests/model_test_dir
