@@ -78,7 +78,7 @@ def health() -> bool:
     return (classifier is not None) and (transformer is not None)
 
 
-@app.post("/predict/", response_model=List[HeartResponse])
+@app.post("/predict", response_model=List[HeartResponse])
 def predict(request: List[HeartDataModel]):
     return make_predictions(request, transformer, classifier)
 
