@@ -43,7 +43,11 @@ def make_predictions(
 @app.on_event("startup")
 def load_model():
     model_path = os.getenv("PATH_TO_MODEL", default="model.pickle")
-    model = load_object(model_path)
+    try:
+        model = load_object(model_path)
+    except FileNotFoundError as err:
+        logger.error(err)
+        return
     global transformer, classifier
     transformer = model["transformer"]
     classifier = model["classifier"]
@@ -61,6 +65,11 @@ def health() -> bool:
 
 @app.post("/predict", response_model=List[HeartResponse])
 def predict(request: List[HeartDataModel]):
+    if not health():
+        logger.error("Model is not loaded")
+        raise HTTPException(
+            status_code=500, detail=f"Cannot make a prediction: model is not available"
+        )
     for sample in request:
         valid, message = is_sample_valid(sample)
         if not valid:
