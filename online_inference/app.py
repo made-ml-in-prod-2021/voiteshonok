@@ -4,10 +4,13 @@ import pandas as pd
 import pickle
 import uvicorn
 
-from fastapi import FastAPI
-from pydantic import BaseModel
+from fastapi import FastAPI, HTTPException
 from sklearn.linear_model import LogisticRegression
+
+from src.datamodel.request import HeartDataModel
+from src.datamodel.response import HeartResponse
 from src.features import HeartDatasetTransformer
+from src.utils import is_sample_valid
 from typing import List, Optional
 
 logger = logging.getLogger(__name__)
@@ -16,28 +19,6 @@ classifier: Optional[LogisticRegression] = None
 
 
 app = FastAPI()
-
-
-class HeartDataModel(BaseModel):
-    id: int = 0
-    age: int = 54
-    sex: int = 1
-    cp: int = 0
-    trestbps: int = 130
-    chol: int = 245
-    fbs: int = 0
-    restecg: int = 0
-    thalach: int = 150
-    exang: int = 0
-    oldpeak: int = 0
-    slope: int = 0
-    ca: int = 0
-    thal: int = 0
-
-
-class HeartResponse(BaseModel):
-    id: int
-    target: int
 
 
 def load_object(path: str) -> dict:
@@ -80,6 +61,12 @@ def health() -> bool:
 
 @app.post("/predict", response_model=List[HeartResponse])
 def predict(request: List[HeartDataModel]):
+    for sample in request:
+        valid, message = is_sample_valid(sample)
+        if not valid:
+            raise HTTPException(
+                status_code=400, detail=f"For sample id={sample.id}: {message}"
+            )
     return make_predictions(request, transformer, classifier)
 
 
