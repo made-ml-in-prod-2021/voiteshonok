@@ -68,7 +68,7 @@ def predict(request: List[HeartDataModel]):
     if not health():
         logger.error("Model is not loaded")
         raise HTTPException(
-            status_code=500, detail=f"Cannot make a prediction: model is not available"
+            status_code=500, detail="Cannot make a prediction: model is not available"
         )
     for sample in request:
         valid, message = is_sample_valid(sample)
