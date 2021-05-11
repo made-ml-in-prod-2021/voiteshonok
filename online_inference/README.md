@@ -6,6 +6,13 @@ docker pull voiteshonok/online_inference:v5
 docker run -p 8000:8000 -it voiteshonok/online_inference:v5
 ```
 
+### API description
+```/``` - GET, root endpoint  
+```/health``` - GET, check service health  
+```/predict``` - POST, make predictions for the list of data samples
+```/docs``` - Swagger documentation
+
+
 ### Running make_request.py
 After you have a running container, you can also run make_request.py script to test the API on the original dataset.  
 For this you need to place [Heart Disease UCI data](https://www.kaggle.com/ronitf/heart-disease-uci) under data folder, 
