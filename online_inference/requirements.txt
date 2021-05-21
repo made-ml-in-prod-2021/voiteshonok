@@ -1,0 +1,6 @@
+fastapi==0.64.0
+omegaconf==2.0.6
+pydantic==1.8.1
+pandas==1.2.4
+scikit_learn==0.24.1
+uvicorn==0.13.4
