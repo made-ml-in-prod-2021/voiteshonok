@@ -50,6 +50,7 @@ x-airflow-common:
     AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: 'true'
     AIRFLOW__CORE__LOAD_EXAMPLES: 'false'
     AIRFLOW__API__AUTH_BACKEND: 'airflow.api.auth.backend.basic_auth'
+    HOST_DATA_DIR: ${HOST_DATA_DIR}
   volumes:
     - ./dags:/opt/airflow/dags
     - ./logs:/opt/airflow/logs
@@ -145,6 +146,11 @@ services:
       timeout: 10s
       retries: 5
     restart: always
+
+  download:
+    build:
+      context: images/airflow-download
+    image: airflow-download
 
 volumes:
   postgres-db-volume:
