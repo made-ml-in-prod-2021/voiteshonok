@@ -16,10 +16,10 @@ HOST_DATA_DIR = os.environ["HOST_DATA_DIR"]
 DATA_SAVE_PATH = "/data/raw/{{ ds }}"
 
 with DAG(
-        "download",
-        default_args=default_args,
-        schedule_interval="@daily",
-        start_date=days_ago(10),
+    "download",
+    default_args=default_args,
+    schedule_interval="@daily",
+    start_date=days_ago(10),
 ) as dag:
     download = DockerOperator(
         image="airflow-download",
@@ -27,7 +27,7 @@ with DAG(
         network_mode="bridge",
         task_id="download",
         do_xcom_push=False,
-        volumes=[f"{HOST_DATA_DIR}:/data"]
+        volumes=[f"{HOST_DATA_DIR}:/data"],
     )
 
     download
