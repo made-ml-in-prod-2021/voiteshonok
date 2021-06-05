@@ -157,5 +157,10 @@ services:
       context: images/airflow-split
     image: airflow-split
 
+  fit-transformer:
+    build:
+      context: images/airflow-fit-transformer
+    image: airflow-fit-transformer
+
 volumes:
   postgres-db-volume:

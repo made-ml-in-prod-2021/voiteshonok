@@ -15,6 +15,8 @@ default_args = {
 HOST_DATA_DIR = os.environ["HOST_DATA_DIR"]
 DATA_RAW_PATH = "/data/raw/{{ ds }}"
 DATA_SPLIT_PATH = "/data/split/{{ ds }}"
+DATA_TRANSFORMED_PATH = "/data/transformed/{{ ds }}"
+MODEL_PATH = "/data/model/{{ ds }}"
 
 with DAG(
     "train_pipeline",
@@ -32,4 +34,14 @@ with DAG(
         volumes=[f"{HOST_DATA_DIR}:/data"],
     )
 
-    split
+    fit_transformer = DockerOperator(
+        image="airflow-fit-transformer",
+        command=f"-l {DATA_SPLIT_PATH} -s {DATA_TRANSFORMED_PATH} -m {MODEL_PATH}",
+        network_mode="bridge",
+        task_id="fit_transformer",
+        do_xcom_push=False,
+        auto_remove=True,
+        volumes=[f"{HOST_DATA_DIR}:/data"],
+    )
+
+    split >> fit_transformer
