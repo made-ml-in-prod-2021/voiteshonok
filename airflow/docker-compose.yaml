@@ -162,5 +162,10 @@ services:
       context: images/airflow-fit-transformer
     image: airflow-fit-transformer
 
+  fit-model:
+    build:
+      context: images/airflow-fit-model
+    image: airflow-fit-model
+
 volumes:
   postgres-db-volume:

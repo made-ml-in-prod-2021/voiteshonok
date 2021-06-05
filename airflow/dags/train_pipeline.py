@@ -44,4 +44,14 @@ with DAG(
         volumes=[f"{HOST_DATA_DIR}:/data"],
     )
 
-    split >> fit_transformer
+    fit_model = DockerOperator(
+        image="airflow-fit-model",
+        command=f"-d {DATA_TRANSFORMED_PATH} -m {MODEL_PATH}",
+        network_mode="bridge",
+        task_id="fit_model",
+        do_xcom_push=False,
+        auto_remove=True,
+        volumes=[f"{HOST_DATA_DIR}:/data"],
+    )
+
+    split >> fit_transformer >> fit_model

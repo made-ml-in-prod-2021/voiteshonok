@@ -54,8 +54,12 @@ def fit_transformer(load_path: str, save_path: str, model_path: str):
     scaler = cast(
         preprocessing.StandardScaler, preprocessing.StandardScaler().fit(features_train)
     )
-    features_train_scaled = pd.DataFrame(scaler.transform(features_train), columns=features_train.columns)
-    features_test_scaled = pd.DataFrame(scaler.transform(features_test), columns=features_test.columns)
+    features_train_scaled = pd.DataFrame(
+        scaler.transform(features_train), columns=features_train.columns
+    )
+    features_test_scaled = pd.DataFrame(
+        scaler.transform(features_test), columns=features_test.columns
+    )
     save_data(
         Path(save_path),
         Path(model_path),
