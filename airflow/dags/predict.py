@@ -4,6 +4,7 @@ from datetime import timedelta
 from airflow import DAG
 from airflow.models import Variable
 from airflow.providers.docker.operators.docker import DockerOperator
+from airflow.sensors.external_task import ExternalTaskSensor
 from airflow.utils.dates import days_ago
 
 default_args = {
@@ -24,6 +25,14 @@ with DAG(
     schedule_interval="@daily",
     start_date=days_ago(30),
 ) as dag:
+    data_sensor = ExternalTaskSensor(
+        task_id="data-sensor",
+        external_dag_id="download",
+        external_task_id="download",
+        check_existence=True,
+        timeout=30,
+    )
+
     predict = DockerOperator(
         image="airflow-predict",
         command=f"-d {DATA_RAW_PATH} -m {MODEL_PATH} -p {PREDICTIONS_PATH}",
@@ -34,4 +43,4 @@ with DAG(
         volumes=[f"{HOST_DATA_DIR}:/data"],
     )
 
-    predict
+    data_sensor >> predict
