@@ -167,5 +167,10 @@ services:
       context: images/airflow-fit-model
     image: airflow-fit-model
 
+  validate:
+    build:
+      context: images/airflow-validate
+    image: airflow-validate
+
 volumes:
   postgres-db-volume:

@@ -22,7 +22,7 @@ with DAG(
     "train_pipeline",
     default_args=default_args,
     schedule_interval="@weekly",
-    start_date=days_ago(10),
+    start_date=days_ago(30),
 ) as dag:
     split = DockerOperator(
         image="airflow-split",
@@ -54,4 +54,14 @@ with DAG(
         volumes=[f"{HOST_DATA_DIR}:/data"],
     )
 
-    split >> fit_transformer >> fit_model
+    validate = DockerOperator(
+        image="airflow-validate",
+        command=f"-d {DATA_TRANSFORMED_PATH} -m {MODEL_PATH}",
+        network_mode="bridge",
+        task_id="validate",
+        do_xcom_push=False,
+        auto_remove=True,
+        volumes=[f"{HOST_DATA_DIR}:/data"],
+    )
+
+    split >> fit_transformer >> fit_model >> validate
