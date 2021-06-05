@@ -2,6 +2,7 @@ import os
 from datetime import timedelta
 
 from airflow import DAG
+from airflow.models import Variable
 from airflow.providers.docker.operators.docker import DockerOperator
 from airflow.utils.dates import days_ago
 
@@ -14,7 +15,7 @@ default_args = {
 
 HOST_DATA_DIR = os.environ["HOST_DATA_DIR"]
 DATA_RAW_PATH = "/data/raw/{{ ds }}"
-MODEL_PATH = "/data/model/2021-05-23"
+MODEL_PATH = Variable.get("predicting_model_path")
 PREDICTIONS_PATH = "/data/predictions/{{ ds }}"
 
 with DAG(
