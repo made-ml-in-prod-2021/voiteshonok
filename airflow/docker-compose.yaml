@@ -152,5 +152,10 @@ services:
       context: images/airflow-download
     image: airflow-download
 
+  split:
+    build:
+      context: images/airflow-split
+    image: airflow-split
+
 volumes:
   postgres-db-volume:

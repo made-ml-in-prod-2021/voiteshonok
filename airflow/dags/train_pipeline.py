@@ -13,22 +13,23 @@ default_args = {
 }
 
 HOST_DATA_DIR = os.environ["HOST_DATA_DIR"]
-DATA_SAVE_PATH = "/data/raw/{{ ds }}"
+DATA_RAW_PATH = "/data/raw/{{ ds }}"
+DATA_SPLIT_PATH = "/data/split/{{ ds }}"
 
 with DAG(
-    "download",
+    "train_pipeline",
     default_args=default_args,
-    schedule_interval="@daily",
+    schedule_interval="@weekly",
     start_date=days_ago(10),
 ) as dag:
-    download = DockerOperator(
-        image="airflow-download",
-        command=f"-s {DATA_SAVE_PATH}",
+    split = DockerOperator(
+        image="airflow-split",
+        command=f"-l {DATA_RAW_PATH} -s {DATA_SPLIT_PATH}",
         network_mode="bridge",
-        task_id="download",
+        task_id="split",
         do_xcom_push=False,
         auto_remove=True,
         volumes=[f"{HOST_DATA_DIR}:/data"],
     )
 
-    download
+    split
