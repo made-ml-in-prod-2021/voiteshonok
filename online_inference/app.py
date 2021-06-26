@@ -2,6 +2,7 @@ import logging
 import os
 import pandas as pd
 import pickle
+import time
 import uvicorn
 
 from fastapi import FastAPI, HTTPException
@@ -19,6 +20,7 @@ classifier: Optional[LogisticRegression] = None
 
 
 app = FastAPI()
+startup_time: Optional[float] = None
 
 
 def load_object(path: str) -> dict:
@@ -42,15 +44,17 @@ def make_predictions(
 
 @app.on_event("startup")
 def load_model():
+    time.sleep(20)
     model_path = os.getenv("PATH_TO_MODEL", default="model.pickle")
     try:
         model = load_object(model_path)
     except FileNotFoundError as err:
         logger.error(err)
         return
-    global transformer, classifier
+    global transformer, classifier, startup_time
     transformer = model["transformer"]
     classifier = model["classifier"]
+    startup_time = time.time()
 
 
 @app.get("/")
@@ -60,6 +64,8 @@ def main():
 
 @app.get("/health")
 def health() -> bool:
+    if time.time() - startup_time > 180:
+        raise RuntimeError
     return (classifier is not None) and (transformer is not None)
 
 
